@@ -20,7 +20,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install flake8 pytest autopep8
+        pip install flake8 autopep8
     
     - name: Auto-fix linter errors
       run: autopep8 --in-place --aggressive --aggressive -r .
@@ -28,11 +28,11 @@ jobs:
     - name: Run linter
       run: flake8 . --show-source --statistics
     
-    - name: Run tests
-      run: pytest
-    
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/quantum_hybrid_model:latest
+    
+    - name: Run tests inside Docker container
+      run: docker run --rm ghcr.io/${{ github.repository_owner }}/quantum_hybrid_model:latest pytest
     
     - name: Log in to GitHub Container Registry
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin

@@ -1,12 +1,27 @@
 # Quantum Enhanced Neural Network (QENN)
 
-This project implements a Quantum Enhanced Neural Network (QENN), which combines classical neural networks with quantum circuits to potentially enhance the model's performance on certain tasks.
+This project implements a Quantum Enhanced Neural Network (QENN), combining classical neural networks with quantum circuits to potentially enhance model performance on specific tasks.
+
+## Table of Contents
+
+- [Project Structure](#project-structure)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Training](#training)
+  - [Inference](#inference)
+- [Model Architecture](#model-architecture)
+- [Training Process](#training-process)
+- [Evaluation Metrics](#evaluation-metrics)
+- [Results](#results)
+- [Future Work](#future-work)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Project Structure
 
 The project consists of the following main components:
 
-- `main.py`: The entry point of the application, handling command-line arguments and orchestrating the training and inference processes.
+- `main.py`: Entry point of the application, handling command-line arguments and orchestrating training and inference processes.
 - `data_processing.py`: Responsible for generating or loading the dataset.
 - `model.py`: Defines the structure of the quantum-classical hybrid model.
 - `training.py`: Contains functions for training and evaluating the model.
@@ -15,28 +30,39 @@ The project consists of the following main components:
 
 ## Installation
 
-To run this project, you need Docker installed on your system. The Dockerfile in the project root contains all the necessary dependencies.
+To run this project, you need Docker installed on your system. The Dockerfile in the project root contains all necessary dependencies.
+
+1. Pull the latest docker image from the GitHub Container Registry:
+   ```sh
+   docker pull ghcr.io/acebot712/quantum_hybrid_model:latest
+   ```
+
+   Alternatively, build the Docker image locally:
+   ```sh
+   docker build -t quantum_hybrid_model .
+   ```
+
+2. To open an interactive terminal into the container with the QENN CLI installed:
+   ```sh
+   docker run -it --entrypoint /bin/bash quantum_hybrid_model
+   ```
+   You can run `qenn` CLI commands inside this container.
 
 ## Usage
-
-First, build the Docker image:
-
-```sh
-docker build -t quantum_hybrid_model .
-```
-
-To open an interactive terminal into the container with qenn CLI installed:
-```sh
-docker run -it --entrypoint /bin/bash quantum_hybrid_model
-```
 
 The application can be run in two modes: training and inference.
 
 ### Training
 
 To train the model, use the following command:
+
 ```sh
-docker run -v $(pwd):/app quantum_hybrid_model:latest qenn train --n_epochs 100 --learning_rate 0.0005 --save_path /app/my_model.pth --n_qubits 5 --plot_dir /app/plots/train
+docker run -v $(pwd):/app quantum_hybrid_model:latest qenn train \
+  --n_epochs 100 \
+  --learning_rate 0.0005 \
+  --save_path /app/my_model.pth \
+  --n_qubits 5 \
+  --plot_dir /app/plots/train
 ```
 
 Arguments:
@@ -49,10 +75,13 @@ Arguments:
 ### Inference
 
 To perform inference using a trained model, use the following command:
-```sh
-docker run -v $(pwd):/app qenn inference --model_path /app/my_model.pth --n_qubits 5 --plot_dir /app/plots/inference
-```
 
+```sh
+docker run -v $(pwd):/app quantum_hybrid_model:latest qenn inference \
+  --model_path /app/my_model.pth \
+  --n_qubits 5 \
+  --plot_dir /app/plots/inference
+```
 
 Arguments:
 - `--model_path`: Path to the trained model file (default: /app/model.pth)
@@ -104,8 +133,21 @@ Potential areas for improvement and expansion:
 
 ## Contributing
 
-Contributions to this project are welcome. Please ensure that your code adheres to the existing style and includes appropriate tests and documentation.
+Contributions to this project are welcome. Please follow these steps:
+
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature/AmazingFeature`)
+3. Make your changes
+4. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+5. Push to the branch (`git push origin feature/AmazingFeature`)
+6. Open a Pull Request
+
+Please ensure that your code adheres to the existing style and includes appropriate tests and documentation.
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Support
+
+If you encounter any issues or have questions, please file an issue on the GitHub repository.

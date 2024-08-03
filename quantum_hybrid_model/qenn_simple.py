@@ -58,7 +58,11 @@ model = HybridModel()
 
 # Generate synthetic data
 X, y = make_classification(
-    n_samples=100, n_features=4, n_informative=2, n_redundant=0, random_state=42
+    n_samples=100,
+    n_features=4,
+    n_informative=2,
+    n_redundant=0,
+    random_state=42
 )
 X = StandardScaler().fit_transform(X)
 X_train, X_test, y_train, y_test = train_test_split(

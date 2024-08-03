@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
-from sklearn.metrics import roc_curve, auc, confusion_matrix, ConfusionMatrixDisplay
+from sklearn.metrics import (
+    roc_curve, auc, confusion_matrix, ConfusionMatrixDisplay
+)
 import os
 
 

@@ -26,7 +26,11 @@ class TestTraining(unittest.TestCase):
 
     def test_train_model(self):
         losses, accuracies = train_model(
-            self.model, self.X_train, self.y_train, n_epochs=10, plot_dir=self.plot_dir
+            self.model, 
+            self.X_train, 
+            self.y_train, 
+            n_epochs=10, 
+            plot_dir=self.plot_dir
         )
         self.assertEqual(len(losses), 10)
         self.assertEqual(len(accuracies), 10)

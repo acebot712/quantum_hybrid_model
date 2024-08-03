@@ -1,16 +1,16 @@
 import torch
 import torch.nn as nn
 import pennylane as qml
-from pennylane import numpy as np
+
 
 class QuantumLayer(nn.Module):
     def __init__(self, n_qubits, n_layers):
         super(QuantumLayer, self).__init__()
         self.n_qubits = n_qubits
         self.n_layers = n_layers
-        self.dev = qml.device('default.qubit', wires=self.n_qubits)
+        self.dev = qml.device("default.qubit", wires=self.n_qubits)
 
-        @qml.qnode(self.dev, interface='torch')
+        @qml.qnode(self.dev, interface="torch")
         def circuit(inputs, weights):
             qml.templates.AngleEmbedding(inputs, wires=range(self.n_qubits))
             qml.templates.StronglyEntanglingLayers(weights, wires=range(self.n_qubits))
@@ -23,10 +23,12 @@ class QuantumLayer(nn.Module):
         x = self.qlayer(x)
         return x
 
+
 # Example usage:
 n_qubits = 4
 n_layers = 2
 quantum_layer = QuantumLayer(n_qubits, n_layers)
+
 
 class HybridModel(nn.Module):
     def __init__(self):
@@ -43,6 +45,7 @@ class HybridModel(nn.Module):
         x = torch.sigmoid(self.fc3(x))
         return x
 
+
 # Example usage:
 model = HybridModel()
 
@@ -51,9 +54,13 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
 # Generate synthetic data
-X, y = make_classification(n_samples=100, n_features=4, n_informative=2, n_redundant=0, random_state=42)
+X, y = make_classification(
+    n_samples=100, n_features=4, n_informative=2, n_redundant=0, random_state=42
+)
 X = StandardScaler().fit_transform(X)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
 
 # Convert to PyTorch tensors
 X_train = torch.tensor(X_train, dtype=torch.float32)
@@ -76,8 +83,8 @@ for epoch in range(n_epochs):
     loss.backward()
     optimizer.step()
 
-    if (epoch+1) % 10 == 0:
-        print(f'Epoch {epoch+1}/{n_epochs}, Loss: {loss.item():.4f}')
+    if (epoch + 1) % 10 == 0:
+        print(f"Epoch {epoch+1}/{n_epochs}, Loss: {loss.item():.4f}")
 
 # Evaluation
 model.eval()
@@ -85,4 +92,4 @@ with torch.no_grad():
     predictions = model(X_test)
     predictions = (predictions > 0.5).float()
     accuracy = (predictions == y_test).float().mean()
-    print(f'Accuracy: {accuracy:.4f}')
+    print(f"Accuracy: {accuracy:.4f}")

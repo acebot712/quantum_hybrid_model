@@ -17,7 +17,8 @@ def advanced_quantum_circuit(inputs, weights):
 # Create a QNode
 n_qubits = 4
 dev = qml.device("default.qubit", wires=n_qubits)
-weight_shapes = {"weights": (20, n_qubits, 3)}  # 20 layers, 4 qubits, 3 parameters each
+# 20 layers, 4 qubits, 3 parameters each
+weight_shapes = {"weights": (20, n_qubits, 3)}
 print(f"Weight shapes: {weight_shapes}")
 
 
@@ -84,7 +85,9 @@ print(f"y_train shape: {y_train.shape}")
 
 # Define loss and optimizer
 criterion = nn.BCELoss()
-optimizer = torch.optim.Adam(model.parameters(), lr=0.001)  # Lower learning rate
+optimizer = torch.optim.Adam(
+    model.parameters(),
+    lr=0.001)  # Lower learning rate
 
 # Training loop
 n_epochs = 100

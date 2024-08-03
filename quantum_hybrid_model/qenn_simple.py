@@ -1,3 +1,6 @@
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split
+from sklearn.datasets import make_classification
 import torch
 import torch.nn as nn
 import pennylane as qml
@@ -13,8 +16,10 @@ class QuantumLayer(nn.Module):
         @qml.qnode(self.dev, interface="torch")
         def circuit(inputs, weights):
             qml.templates.AngleEmbedding(inputs, wires=range(self.n_qubits))
-            qml.templates.StronglyEntanglingLayers(weights, wires=range(self.n_qubits))
-            return [qml.expval(qml.PauliZ(wires=i)) for i in range(self.n_qubits)]
+            qml.templates.StronglyEntanglingLayers(
+                weights, wires=range(self.n_qubits))
+            return [qml.expval(qml.PauliZ(wires=i))
+                    for i in range(self.n_qubits)]
 
         weight_shapes = {"weights": (self.n_layers, self.n_qubits, 3)}
         self.qlayer = qml.qnn.TorchLayer(circuit, weight_shapes)
@@ -36,7 +41,8 @@ class HybridModel(nn.Module):
         self.fc1 = nn.Linear(4, 4)  # Adjust input size if needed
         self.quantum = QuantumLayer(4, 2)  # 4 qubits, 2 layers
         self.fc2 = nn.Linear(4, 2)  # Adjust output size if needed
-        self.fc3 = nn.Linear(2, 1)  # Final output layer for binary classification
+        # Final output layer for binary classification
+        self.fc3 = nn.Linear(2, 1)
 
     def forward(self, x):
         x = torch.tanh(self.fc1(x))
@@ -49,9 +55,6 @@ class HybridModel(nn.Module):
 # Example usage:
 model = HybridModel()
 
-from sklearn.datasets import make_classification
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
 
 # Generate synthetic data
 X, y = make_classification(

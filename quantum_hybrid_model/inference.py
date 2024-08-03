@@ -1,6 +1,7 @@
 import torch
 from .model import initialize_model
 
+
 def load_model(model_path, n_qubits=4):
     weight_shapes = {
         "weights": (20, n_qubits, 3)
@@ -10,6 +11,7 @@ def load_model(model_path, n_qubits=4):
     model.load_state_dict(state_dict)
     model.eval()
     return model
+
 
 def inference(model, X):
     with torch.no_grad():

@@ -41,6 +41,7 @@ class AdvancedHybridModel(nn.Module):
 
 def initialize_model(n_qubits=4, weight_shapes=None):
     if weight_shapes is None:
-        weight_shapes = {"weights": (20, n_qubits, 3)}  # Set default weight shapes
+        # Set default weight shapes
+        weight_shapes = {"weights": (20, n_qubits, 3)}
     model = AdvancedHybridModel(n_qubits, weight_shapes)
     return model

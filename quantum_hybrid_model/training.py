@@ -48,7 +48,9 @@ def train_model(
 
         if (epoch + 1) % 10 == 0:
             print(
-                f"Epoch {epoch+1}/{n_epochs}, Loss: {loss.item():.4f}, Accuracy: {accuracy:.4f}"
+                f"""
+                  Epoch {epoch+1}/{n_epochs}, Loss: {loss.item():.4f}, Accuracy: {accuracy:.4f}
+                """
             )
 
     # Save the model

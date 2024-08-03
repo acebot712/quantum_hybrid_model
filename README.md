@@ -22,7 +22,7 @@ To run this project, you need Docker installed on your system. The Dockerfile in
 First, build the Docker image:
 
 ```sh
-docker build -t qenn .
+docker build -t quantum_hybrid_model .
 ```
 
 To open an interactive terminal into the container with qenn CLI installed:
@@ -36,7 +36,7 @@ The application can be run in two modes: training and inference.
 
 To train the model, use the following command:
 ```sh
-docker run -v $(pwd):/app quantum_hybrid_model:latest train --n_epochs 100 --learning_rate 0.0005 --save_path /app/my_model.pth --n_qubits 5 --plot_dir /app/plots/train
+docker run -v $(pwd):/app quantum_hybrid_model:latest qenn train --n_epochs 100 --learning_rate 0.0005 --save_path /app/my_model.pth --n_qubits 5 --plot_dir /app/plots/train
 ```
 
 Arguments:
@@ -49,8 +49,9 @@ Arguments:
 ### Inference
 
 To perform inference using a trained model, use the following command:
-
+```sh
 docker run -v $(pwd):/app qenn inference --model_path /app/my_model.pth --n_qubits 5 --plot_dir /app/plots/inference
+```
 
 
 Arguments:

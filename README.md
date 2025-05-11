@@ -1,5 +1,19 @@
 # Quantum Enhanced Neural Network (QENN)
 
+> **Major Upgrade In Progress:**
+> This project is being enhanced with the following advanced features:
+> - Benchmarking and ablation studies
+> - Config-driven experiments
+> - Plugin system for extensibility
+> - Real-world dataset integration
+> - Hyperparameter optimization (Optuna)
+> - Advanced visualization and interpretability
+> - Hardware and noise simulation support
+> - Research communication (notebooks, blog, open science)
+> - Advanced hybrid training and explainability
+> - Robust testing and CI/CD
+> - Educational tutorials and interactive demos
+
 This project implements a Quantum Enhanced Neural Network (QENN), combining classical neural networks with quantum circuits to potentially enhance model performance on specific tasks.
 
 ## Table of Contents
@@ -16,6 +30,11 @@ This project implements a Quantum Enhanced Neural Network (QENN), combining clas
 - [Future Work](#future-work)
 - [Contributing](#contributing)
 - [License](#license)
+- [Advanced Features](#advanced-features)
+  - [Benchmarking & Ablation](#benchmarking-ablation)
+  - [Plugins & Custom Circuits](#plugins-custom-circuits)
+  - [Hyperparameter Optimization](#hyperparameter-optimization)
+  - [Jupyter Notebooks](#jupyter-notebooks)
 
 ## Project Structure
 
@@ -151,3 +170,24 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Support
 
 If you encounter any issues or have questions, please file an issue on the GitHub repository.
+
+## Advanced Features
+
+### Benchmarking & Ablation
+
+- Run benchmarking: `python benchmarks/benchmark.py`
+- Run ablation study: `python benchmarks/ablation.py`
+- Configure experiments via YAML in `configs/experiment_template.yaml`
+
+### Plugins & Custom Circuits
+
+- Add new quantum circuits as Python files in the `plugins/` directory.
+- Reference them in the config under `model.quantum_circuit`.
+
+### Hyperparameter Optimization
+
+- Enable Optuna in the config and run `python benchmarks/benchmark.py`.
+
+### Jupyter Notebooks
+
+- Explore and visualize results in `notebooks/QuantumHybridModel_Exploration.ipynb`.

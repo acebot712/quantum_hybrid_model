@@ -95,3 +95,22 @@ def evaluate_model(model, X_test, y_test, plot_dir="."):
     generate_confusion_matrix(y_test, predicted_labels, plot_dir)
 
     return accuracy
+
+
+def optuna_objective(trial, config, X_train, y_train, X_test, y_test):
+    import optuna
+    n_qubits = trial.suggest_int('n_qubits', config['hyperparameter_optimization']['search_space']['n_qubits'][0], config['hyperparameter_optimization']['search_space']['n_qubits'][1])
+    learning_rate = trial.suggest_float('learning_rate', config['hyperparameter_optimization']['search_space']['learning_rate'][0], config['hyperparameter_optimization']['search_space']['learning_rate'][1], log=True)
+    weight_shapes = {"weights": (20, n_qubits, 3)}
+    model = initialize_model(n_qubits=n_qubits, weight_shapes=weight_shapes)
+    train_model(model, X_train, y_train, n_epochs=config['training']['n_epochs'], learning_rate=learning_rate)
+    acc = evaluate_model(model, X_test, y_test)
+    return acc
+
+
+def run_optuna_optimization(config, X_train, y_train, X_test, y_test):
+    import optuna
+    study = optuna.create_study(direction="maximize")
+    study.optimize(lambda trial: optuna_objective(trial, config, X_train, y_train, X_test, y_test), n_trials=config['hyperparameter_optimization']['n_trials'])
+    print("Best trial:", study.best_trial.params)
+    return study.best_trial

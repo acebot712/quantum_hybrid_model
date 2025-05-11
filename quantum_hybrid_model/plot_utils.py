@@ -60,3 +60,24 @@ def generate_confusion_matrix(y_test, predictions, plot_dir="."):
     disp.plot(cmap=plt.cm.Blues)
     plt.title("Confusion Matrix")
     plt.savefig(os.path.join(plot_dir, "confusion_matrix.png"))
+
+
+def visualize_quantum_circuit(qnode, save_path=None):
+    fig, ax = plt.subplots(figsize=(10, 4))
+    drawing = qnode.draw()()
+    print(drawing)
+    if save_path:
+        with open(save_path, 'w') as f:
+            f.write(drawing)
+    return drawing
+
+
+def plot_feature_importance(importances, feature_names, save_path=None):
+    plt.figure(figsize=(8, 4))
+    plt.bar(feature_names, importances)
+    plt.title('Feature Importance')
+    plt.xlabel('Feature')
+    plt.ylabel('Importance')
+    if save_path:
+        plt.savefig(save_path)
+    plt.close()

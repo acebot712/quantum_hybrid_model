@@ -1,0 +1,36 @@
+experiment_name: "example_experiment"
+model:
+  type: "AdvancedHybridModel"  # or other model types
+  n_qubits: 4
+  weight_shapes:
+    weights: [20, 4, 3]
+  quantum_circuit: "advanced_quantum_circuit"  # or other circuit types
+training:
+  n_epochs: 100
+  learning_rate: 0.001
+  batch_size: 32
+  optimizer: "adam"
+  save_path: "model.pth"
+data:
+  source: "synthetic"  # or "real_world"
+  real_world_path: "data/real_world.csv"
+  n_samples: 100
+  n_features: 4
+  test_size: 0.2
+benchmark:
+  run_baseline: true
+  baseline_model: "MLPClassifier"
+  metrics: ["accuracy", "roc_auc", "f1"]
+hyperparameter_optimization:
+  enabled: false
+  n_trials: 50
+  search_space:
+    learning_rate: [0.0001, 0.01]
+    n_qubits: [2, 8]
+visualization:
+  plot_dir: "plots/"
+  enable_circuit_viz: true
+  enable_feature_importance: true
+hardware:
+  use_real_quantum_device: false
+  device_name: "default.qubit" 
